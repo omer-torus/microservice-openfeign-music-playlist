@@ -1,0 +1,11 @@
+com\music\playlist_service\client\SongClient.class
+com\music\playlist_service\client\UserClient.class
+com\music\playlist_service\controller\PlaylistController.class
+com\music\playlist_service\service\PlaylistService$1.class
+com\music\playlist_service\model\Playlist.class
+com\music\playlist_service\repository\PlaylistRepository.class
+com\music\playlist_service\service\PlaylistService.class
+com\music\playlist_service\PlaylistServiceApplication.class
+com\music\playlist_service\client\dto\SongDTO.class
+com\music\playlist_service\config\FeignConfig.class
+com\music\playlist_service\client\dto\UserDTO.class

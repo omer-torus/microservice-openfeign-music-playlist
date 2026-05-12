@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  # 🗄️ PostgreSQL Veritabanı
+  postgres:
+    image: postgres:15-alpine
+    container_name: music-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    # Uygulamalar çalışmadan veritabanının hazır olmasını sağlar
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 👤 User Service (8081)
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+
+  # 🎵 Song Service (8082)
+  song-service:
+    build:
+      context: ./song-service
+      dockerfile: Dockerfile
+    container_name: song-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+
+  # 🎧 Playlist Service (8083)
+  playlist-service:
+    build:
+      context: ./playlist-service
+      dockerfile: Dockerfile
+    container_name: playlist-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
