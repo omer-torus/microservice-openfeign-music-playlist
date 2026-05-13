@@ -1,4 +1,4 @@
-# Microservice Communication with Declarative Clients
+# Declarative Web Service Clients
 
 This project demonstrates inter-microservice communication using Spring Boot, OpenFeign, Docker, and PostgreSQL.
 
